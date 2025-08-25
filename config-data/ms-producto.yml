@@ -1,13 +1,13 @@
 spring:
   application:
     name: ms-producto
-  profiles:
-    active: development
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ms_producto
     username: postgres
     password: 123456
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,9 +26,4 @@ springdoc:
 
 server:
   port: 8080
-
-logging:
-  level:
-    org.springframework: INFO
-    com.example: DEBUG
 
