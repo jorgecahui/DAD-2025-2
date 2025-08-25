@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: ms-producto
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ms_producto
     username: postgres
@@ -9,4 +12,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui.html
+
