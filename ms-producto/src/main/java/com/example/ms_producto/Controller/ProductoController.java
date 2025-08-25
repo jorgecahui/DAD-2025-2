@@ -2,6 +2,7 @@ package com.example.ms_producto.Controller;
 
 import com.example.ms_producto.Entity.Producto;
 import com.example.ms_producto.Service.ProductoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,10 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Producto> buscarPorId(@PathVariable Integer id) {
-        return productoService.buscarPorId(id);
+    public ResponseEntity<Producto> buscarPorId(@PathVariable Integer id) {
+        return productoService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -32,14 +35,15 @@ public class ProductoController {
         return productoService.guardar(producto);
     }
 
-    @PutMapping
-    public Producto actualizar(@RequestBody Producto producto) {
-        return productoService.actualizar(producto);
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizar(@PathVariable Integer id, @RequestBody Producto producto) {
+        producto.setId(id);
+        return ResponseEntity.ok(productoService.actualizar(producto));
     }
 
     @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         productoService.eliminar(id);
-        return "Producto eliminado";
+        return ResponseEntity.noContent().build();
     }
 }
